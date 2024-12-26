@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Notification System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <h1 class="text-center mb-4">Real-Time Notification System</h1>
+    <div class="card shadow-sm">
+        <div class="card-header text-white bg-primary">
+            Notifications
+        </div>
+        <div class="card-body">
+            <ul id="notifications" class="list-group">
+                <!-- Notifications -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const eventSource = new EventSource("http://localhost:8080/notif");
+
+    eventSource.onopen = () => {
+        console.log("Connected to SSE");
+    };
+
+    eventSource.onmessage = (event) => {
+        console.log("Message received:", event.data);
+        try {
+            const notification = JSON.parse(event.data);
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+            listItem.innerHTML = `
+                ${notification.message}
+<!--                <span class="badge bg-secondary">${new Date(notification.timestamp).toLocaleTimeString()}</span>-->
+            `;
+            document.getElementById("notifications").appendChild(listItem);
+        } catch (e) {
+            console.error("Error parsing notification:", e);
+            const listItem = document.createElement("li");
+            listItem.textContent = event.data;
+            document.getElementById("notifications").appendChild(listItem);
+        }
+    };
+
+    eventSource.onerror = (err) => {
+        console.error("SSE connection error:", err);
+    };
+</script>
+
+<!-- Bootstrap Javascript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
