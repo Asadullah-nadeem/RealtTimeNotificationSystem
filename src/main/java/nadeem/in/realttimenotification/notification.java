@@ -1,21 +1,49 @@
 package nadeem.in.realttimenotification;
 
+
+import java.time.LocalDateTime;
+
 public class notification {
+    private int id;
+    private String message;
+    private LocalDateTime timestamp;
 
-    final String message;
-    final int timestamp;
-
-    public notification(String message){
+    public notification(int id, String message, LocalDateTime timestamp) {
+        this.id = id;
         this.message = message;
-        this.timestamp = (int) System.currentTimeMillis();
+        this.timestamp = timestamp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public int getTimestamp() {
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
