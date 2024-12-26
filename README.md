@@ -1,5 +1,9 @@
 # How to Use the Real-Time Notification System
 
+![image](https://github.com/user-attachments/assets/12f92ce2-8fef-46a2-ac82-1c58801d5ed2)
+![image](https://github.com/user-attachments/assets/7ac20a5d-0443-4ed3-89a3-64c0471b123e)
+
+
 This guide explains how to use the Real-Time Notification System, including its API endpoints and the accompanying frontend interface.
 
 ## Backend (API) Usage
